@@ -74,19 +74,19 @@ python -m src.main
 
 ```mermaid
 graph TD
-    A["Gmail Ingestion (IMAP)"] -->|Fetch Unread| B(Preprocessing)
-    B -->|Cleaned Text| C{Safety Gating}
-    C -->|Safe| D["AI Classification (Gemini 2.5 Flash)"]
+    A["Gmail Ingestion (IMAP)"] -->|"Fetch Unread"| B(Preprocessing)
+    B -->|"Cleaned Text"| C{Safety Gating}
+    C -->|"Safe"| D["AI Classification (Gemini 2.5 Flash)"]
     
-    D -->|Intent + Priority| E{Rule Engine}
-    D -->|Confidence Score| F{Safety Layer}
+    D -->|"Intent + Priority"| E{Rule Engine}
+    D -->|"Confidence Score"| F{Safety Layer}
     
-    E -->|Approved Action| G[Action Execution]
-    F -->|Low Confidence (< 0.85)| H[Force Draft / Flag]
-    F -->|High Confidence| G
+    E -->|"Approved Action"| G[Action Execution]
+    F -->|"Low Confidence (< 0.85)"| H[Force Draft / Flag]
+    F -->|"High Confidence"| G
     
-    G -->|SMTP/IMAP| I["Gmail (Send/Label/Archive)"]
-    G -->|Log Decision| J[Audit Log (JSONL)]
+    G -->|"SMTP/IMAP"| I["Gmail (Send/Label/Archive)"]
+    G -->|"Log Decision"| J[Audit Log (JSONL)]
 ```
 
 ### Design Decisions & Trade-offs
