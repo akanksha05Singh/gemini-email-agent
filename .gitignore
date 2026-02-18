@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# Configuration with Secrets
+config/config.yaml
+pass
+send_test.py
+test_imap.py
+
+# Logs
+audit_log.jsonl
+*.log
+
+# IDEs
+.vscode/
+.idea/
