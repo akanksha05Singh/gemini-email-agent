@@ -86,7 +86,7 @@ graph TD
     F -->|"High Confidence"| G
     
     G -->|"SMTP/IMAP"| I["Gmail (Send/Label/Archive)"]
-    G -->|"Log Decision"| J[Audit Log (JSONL)]
+    G -->|"Log Decision"| J["Audit Log (JSONL)"]
 ```
 
 ### Design Decisions & Trade-offs
