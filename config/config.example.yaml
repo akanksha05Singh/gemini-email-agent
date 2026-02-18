@@ -1,0 +1,63 @@
+credentials:
+  gmail_email: "your_email@gmail.com"
+  # Best practice: Use environment variables for sensitive data
+  gmail_app_password: "YOUR_GMAIL_APP_PASSWORD" # <--- Reviewer fills this in
+  gemini_api_key: "YOUR_GEMINI_API_KEY"         # <--- Reviewer fills this in
+
+agent_settings:
+  model_name: "gemini-2.5-flash"
+  temperature: 0.2
+  max_output_tokens: 1024
+  # System prompt will be loaded from a file
+  system_prompt_path: "prompts/system_instruction.txt"
+
+safety:
+  min_confidence_for_auto_action: 0.85
+  min_confidence_for_draft: 0.60
+  rate_limit:
+    enabled: true
+    max_emails_per_hour: 50
+  allowed_domains_for_reply: ["*"] 
+  human_in_the_loop_label: "AI_REVIEW_NEEDED"
+
+rules:
+  - name: "Urgent Meeting Request"
+    condition:
+      intent: "Meeting"
+      priority: "High"
+    actions:
+      - type: "draft_reply"
+      - type: "label"
+        value: "URGENT"
+
+  - name: "Urgent Issues"
+    condition:
+      intent: "Urgent"
+      priority: "High"
+    actions:
+      - type: "draft_reply"
+      - type: "label"
+        value: "URGENT"
+
+  - name: "Standard Meeting Request (Medium Priority)"
+    condition:
+      intent: "Meeting"
+      priority: "Medium"
+    actions:
+      - type: "draft_reply"
+        template: "response_templates/meeting_confirm.txt"
+
+  - name: "Newsletter Archive"
+    condition:
+      intent: "Newsletter"
+    actions:
+      - type: "label"
+        value: "Newsletters"
+      - type: "archive"
+
+  - name: "Spam Block"
+    condition:
+      intent: "Spam"
+    actions:
+      - type: "label"
+        value: "Potential-Spam"
